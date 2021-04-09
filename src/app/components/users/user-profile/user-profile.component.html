@@ -1,0 +1,79 @@
+<div class="page-header">Profile</div>
+
+  <mat-accordion class="example-headers-align" multi>
+    <mat-expansion-panel expanded="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Personal data
+        </mat-panel-title>
+        <mat-panel-description>
+          Your data, other can see it
+          <mat-icon>account_circle</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+  
+      <div class="container mb-4" style="max-width: 600px">
+
+        <div class="row" *ngIf="ngAuthService.userState as user">
+          <div class="media">
+            <img class="align-self-start mr-5 img-thumbnail rounded-circle"
+              src="{{(user.photoURL) ? user.photoURL : '/assets/dummy.jpg'}}" alt="{{user.displayName}}">
+            <div class="media-body">
+              <h2>Hi: <strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></h2>
+              <p>birthday: <strong>{{fullUser.birthday}}</strong></p>
+              <p>Last log-in: <strong>{{cUser.lastLoginAt | date: 'yyyy-MM-dd hh:mm' }}</strong></p>
+            </div>
+          </div>
+        </div>
+       
+      </div>
+      <a class="btn btn-block btn-primary" [routerLink]="'/dashboard/update-user/'+ fullUser.uid" >
+        update user information
+      </a>
+    </mat-expansion-panel>
+    <mat-expansion-panel expanded="true" >
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Email 
+        </mat-panel-title>
+        <mat-panel-description>
+          Update user email
+          <mat-icon>mail</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div *ngIf="ngAuthService.userState as user">
+        <p>  Email
+          <mat-form-field class="example-full-width">
+            <input matInput  value="{{user.email}}">
+          </mat-form-field>
+        </p>
+       
+        <a class="btn btn-block btn-primary" [routerLink]="'/dashboard/update-user/'+ fullUser.uid" >
+          update user email
+        </a>
+      </div>
+
+
+
+    </mat-expansion-panel>
+  
+    <mat-expansion-panel expanded="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Actions
+        </mat-panel-title>
+        <mat-panel-description>
+          change your accunt status
+          <mat-icon>manage_accounts </mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      
+      <a class="btn btn-block btn-primary mb-4" (click)="ngAuthService.SignOut()">
+        Sign Out
+      </a>
+      <a class="btn btn-block btn-danger" (click)="deleteUser()">
+        delete account
+      </a>
+
+    </mat-expansion-panel>
+  </mat-accordion>

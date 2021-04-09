@@ -1,0 +1,14 @@
+<div class="page-header d-flex">
+    <button mat-icon-button color="primary" (click)="back()" aria-label="go back">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <div>
+        {{header?.title}}
+    </div> 
+    <span class="spacer">
+    </span>
+    <ng-container *ngIf="header?.button">
+        <button mat-raised-button color="primary"  routerLink="{{header?.url}}">{{header?.button}}</button>
+    </ng-container>
+    
+  </div>

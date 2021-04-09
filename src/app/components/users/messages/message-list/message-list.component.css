@@ -1,0 +1,70 @@
+table {
+    width: 100%;
+  }
+  
+  tr.example-detail-row {
+    height: 0;
+  }
+  
+  tr.example-element-row:not(.example-expanded-row):hover {
+    background: whitesmoke;
+  }
+  
+  tr.example-element-row:not(.example-expanded-row):active {
+    background: #efefef;
+  }
+  
+  .example-element-row td {
+    border-bottom-width: 0;
+  }
+  
+  .example-element-detail {
+    overflow: hidden;
+    display: block;
+  }
+  
+  
+  .example-element-description {
+    padding: 16px;
+  }
+  
+  .example-element-description-attribution {
+    opacity: 0.5;
+  }
+  .header {
+      font-size: 1.5rem;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: solid;
+      border-width: thin;
+  }
+  
+
+  .test {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 25% !important;
+    width: 25% !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  
+    word-break: break-word;
+  
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+   .test2 .test1:first-child{
+    white-space: nowrap !important;
+ 
+     }
+     ::ng-deep .example-expanded-row.test2{
+         border-top-width: 0.5rem ;
+     }
+
+  .selected {
+    background: transparent;
+    background-color: rgba(0,0,0,.04)
+  }
+  

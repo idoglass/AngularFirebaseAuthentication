@@ -1,0 +1,64 @@
+<app-page-header [header]="header"></app-page-header>
+
+<form [formGroup]="messageForm" (ngSubmit)="onSubmit()" novalidate>
+  <div class="d-flex">
+    <mat-form-field class="full-width mr-2 ">
+      <mat-label >From:</mat-label>
+      {{messageForm.value.sender}}
+      <input matInput type="text" class="hidden" formControlName="sender"  required >
+    </mat-form-field>
+
+    <mat-form-field class="full-width ">
+      <mat-label>Date:</mat-label>
+      {{messageForm.value.date | date: 'yyyy-MM-dd hh:mm' }}
+      <input matInput type="text" class="hidden" formControlName="date"  required>
+    </mat-form-field>
+  </div>
+  <mat-form-field class=" full-width example-chip-list">
+    <mat-chip-list #chipList aria-label="Fruit selection">
+      <mat-chip
+        *ngFor="let email of emails"
+        [selectable]="selectable"
+        [removable]="removable"
+        (removed)="remove(email)">
+        {{email}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+      <input
+        placeholder="New email..."
+        #emailInput
+        type="text"
+        [formControl]="reciver"
+        [matAutocomplete]="auto"
+        [matChipInputFor]="chipList"
+        matChipInputAddOnBlur="false"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        (matChipInputTokenEnd)="add($event)"
+          (blur)="addOnBlur($event)"
+        >
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+      <mat-option  [value]="'all'">
+        send to all of {{group.name}}
+      </mat-option>
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+{{options | json}}
+    <mat-form-field class="full-width">
+      <mat-label>Title:</mat-label>
+      <input matInput type="text" formControlName="title"  required>
+    </mat-form-field>
+    
+    <mat-form-field class="full-width">
+      <mat-label>Body:</mat-label>
+      <textarea  matInput type="text" formControlName="body"  required></textarea>
+    </mat-form-field>
+    
+  
+    <div class="mb-3">
+      <button type="submit" class="btn btn-primary" [disabled]="!messageForm.valid">Create</button>
+    </div>
+  </form>

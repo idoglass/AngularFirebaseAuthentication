@@ -395,8 +395,8 @@ label {
 }
 
 .user-image {
-  width: 42px;
-  height: 42px;
+  width: 80px;
+  height: 80px;
   display: inline-block;
   border-radius: 50%;
   vertical-align: middle;
@@ -404,6 +404,8 @@ label {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 0 0;
+
+  object-fit: contain;
 }
 
 body .table thead th {
@@ -416,5 +418,22 @@ body .table thead th {
 
 .rounded-circle {
   max-width: 150px;
+}
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.page-header {
+  margin-bottom: 1rem;
+  font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif;
+}
+
+.spacer {
+  flex: 1 1 auto;
 }
 

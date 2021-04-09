@@ -1,0 +1,60 @@
+
+  <mat-accordion >
+    
+    <mat-expansion-panel [expanded]="panelOpenState" disabled>
+      <mat-expansion-panel-header style="padding: 40px;">
+        <mat-panel-title  >
+            <mat-form-field appearance="standard">
+                <mat-label>Select color</mat-label>
+                <mat-select  [disabled]="panelOpenState">
+                    <mat-option *ngFor="let option of colors | keyvalue" 
+                    [value]="palet.name"
+                    [ngStyle]="{'background-color': option.value.hex}"
+                    (click)="palet = {'name': option.key, 'bg': option.value.hex, 'text': option.value[900],  'secondary': option.value.a100}; changeColor();">
+                    <span style="padding: 7px; border-radius: 15px; align-self: center;" 
+                    [ngStyle]="{'background-color': option.value.a100, 'color': option.value[900], 'border': '5px solid' + option.value.hex}">
+                        {{option.key}}
+                    </span>
+        </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <span style="padding: 7px; border-radius: 15px; align-self: center;" [ngStyle]="{'background-color': palet.secondary, 'color': palet.text, 'border': '5px solid' + palet.bg}">
+                {{palet.name}}
+            </span>
+
+        </mat-panel-title>
+        <mat-panel-description style="color: black; align-self: center;" class="d-flex justify-content-between">
+            
+           <span class="spacer"></span>
+            
+              <button mat-icon-button 
+              (click)="panelOpenState = !panelOpenState ; palet.name = 'custom'; $event.preventDefault()"
+              aria-label="Example icon button with a vertical three dot icon">
+               
+
+                <mat-icon>{{panelOpenState? 'arrow_drop_up' : 'arrow_drop_down'}}</mat-icon>
+                {{panelOpenState? 'less options' : 'more options'}}
+              </button>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+<div class="d-flex justify-content-between flex-wrap">
+    <mat-form-field class="example-full-width">
+        <mat-label>Main color</mat-label>
+        <input matInput type="color" placeholder="Ex. Pizza" [(ngModel)]="palet.bg" (ngModelChange)="changeColor();">
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Secondary color</mat-label>
+        <input matInput type="color" placeholder="Ex. Pizza" [(ngModel)]="palet.secondary" (ngModelChange)="changeColor();">
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Text color</mat-label>
+        <input matInput type="color" placeholder="Ex. Pizza" [(ngModel)]="palet.text" (ngModelChange)="changeColor();">
+      </mat-form-field>
+    </div>
+
+
+    </mat-expansion-panel>
+  </mat-accordion>
+
+
+  

@@ -1,0 +1,76 @@
+.example-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  
+  .example-is-mobile .example-toolbar {
+    position: fixed;
+    /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+    z-index: 2;
+  }
+  
+  h1.example-app-name {
+    margin-left: 8px;
+  }
+  
+  .example-sidenav-container {
+    /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+       causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+    flex: 1;
+  }
+  
+  .example-is-mobile .example-sidenav-container {
+    /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
+       `<body>` to be our scrolling element for mobile layouts. */
+    flex: 1 0 auto;
+  }
+  
+  mat-nav-list.mat-icon {
+    margin-left: 16px;
+}
+.striped-background{
+    background: #FC466B;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #798ce9, #FC466B);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #3F5EFB, #FC466B); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.img-thumbnail {
+    max-height: 80px !important;
+
+}
+.box {
+    padding-top: 24px;
+    padding-right: 16px;
+    padding-bottom: 8px;
+    padding-left: 16px;
+    display: flex;
+    position: relative;
+    top: -8px;
+}
+.inner-box {
+    margin-left: 16px;
+    color: white;
+}
+::ng-deep .mat-menu-panel {
+    max-width: 350px !important;
+}
+::ng-deep .mat-menu-content {
+    background: white
+}
+::ng-deep .user-menu .mat-menu-content .ng-star-inserted {
+    background: #FC466B;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #798ce9, #FC466B);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #3F5EFB, #FC466B); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.mat-menu-item {
+    background: white
+}
+.button-container {
+  position: absolute;
+  bottom:  32px;
+  right: 32px;
+}

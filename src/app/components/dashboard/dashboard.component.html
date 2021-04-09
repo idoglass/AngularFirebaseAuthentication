@@ -1,19 +1,62 @@
- <div class="container mt-5" style="max-width: 600px">
+<div class="example-container" >
+  <mat-toolbar class="example-toolbar" [ngStyle]="navColor">
+    <button mat-icon-button (click)="snav.toggle()" class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>{{ selectedGroup?.name }}</span>
+    <span class="example-spacer"></span>
+    <button mat-raised-button color="accent" [matMenuTriggerFor]="menu">{{selectedGroup?.name}} <mat-icon>arrow_drop_down</mat-icon></button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item  (click)="onClick(group)" *ngFor="let group of groups">{{ group.name }}</button>
+      </mat-menu>
+    <button mat-icon-button routerLink="/dashboard/list-messages" class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+      <mat-icon [matBadge]="newMessages" [matBadgeHidden]="newMessages===0? true : false" matBadgeColor="warn">notifications</mat-icon>
+    </button>
+    <button mat-icon-button class="example-icon" [matMenuTriggerFor]="beforeMenu"><mat-icon>person</mat-icon></button>
+  <mat-menu class="user-menu" #beforeMenu="matMenu" xPosition="before">
 
-   <div class="row" *ngIf="ngAuthService.userState as user">
-     <div class="media">
-       <img class="align-self-start mr-5 img-thumbnail rounded-circle"
-         src="{{(user.photoURL) ? user.photoURL : '/assets/dummy.jpg'}}" alt="{{user.displayName}}">
-       <div class="media-body">
-         <h2>Hi: <strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></h2>
-         <p>User ID: <strong>{{user.uid}}</strong></p>
-         <p>Email: <strong>{{user.email}}</strong></p>
-       </div>
-     </div>
-   </div>
+    <div *ngIf="ngAuthService.userState as User">
+      <div class="box striped-background" >
+        <img class="img-thumbnail rounded-circle user-image" src="{{(user.photoURL) ? user.photoURL : '/assets/dummy.jpg'}}" alt="{{user?.displayName}}">
+        <div class="inner-box" >
+          <h2>Hi: <strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></h2>
+          <p> <strong>{{user.email}}</strong></p>
+        </div>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <button mat-menu-item routerLink="/dashboard/profile"><button mat-icon-button  class="example-icon"><mat-icon>person</mat-icon></button>account</button>
+    <button mat-menu-item routerLink="/dashboard/settings"><button mat-icon-button class="example-icon"><mat-icon>settings</mat-icon></button>settings</button>
+    <button mat-menu-item routerLink="/dashboard/list-messages"><button mat-icon-button class="example-icon"><mat-icon>notifications</mat-icon></button>masseges</button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="ngAuthService.SignOut()"><button mat-icon-button class="example-icon"><mat-icon>logout</mat-icon></button>log out</button>
+  </mat-menu>
+  </mat-toolbar>
 
-   <a class="btn btn-block btn-primary" (click)="ngAuthService.SignOut()">
-     Sign Out
-   </a>
+  <mat-sidenav-container class="example-sidenav-container">
+    <mat-sidenav #snav mode="side" opened="true">
+     <mat-nav-list class="d-flex flex-column h-100">
+      <button mat-menu-item routerLink="/dashboard"><mat-icon >home</mat-icon>{{showText? 'home' : ''}}</button>
+      <button mat-menu-item routerLink="/dashboard/list-group"><mat-icon>group</mat-icon>{{showText? 'groups' : ''}}</button>
+      <mat-divider></mat-divider>
+      <span class="spacer"></span>
+      <mat-divider></mat-divider>
+      <button mat-menu-item routerLink="/dashboard/help"><mat-icon>help</mat-icon>{{showText? 'help' : ''}}</button>
+      <button mat-menu-item (click)="showText = !showText"><mat-icon>{{showText? 'arrow_left' : 'arrow_right' }}</mat-icon>{{showText? 'minimize' : ''}}</button>
 
- </div>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <div class="container mt-5">
+        <router-outlet></router-outlet>
+      </div>
+      <div class="button-container">
+        <button mat-fab color="warn" (click)="fabAction()" aria-label="action button">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  
+</div>

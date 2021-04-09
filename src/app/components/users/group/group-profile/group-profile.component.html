@@ -1,0 +1,31 @@
+
+<app-page-header [header]="header"></app-page-header>
+<p>{{group?.discription}}</p>
+  <div class="mt-2" *ngIf="isManager" style="display: flex; ">
+    <mat-form-field appearance="legacy" style="flex: 1 1 auto;" class="mr-2">
+      <mat-label>Invite new member</mat-label>
+      <input #email matInput type="email" placeholder="abc@def.com">
+      <mat-icon matSuffix>mail</mat-icon>
+      <mat-hint>Email</mat-hint>
+    </mat-form-field>
+    <div>
+      <button mat-raised-button (click)="sendInvitation(email)" color="accent"  class="mr-2">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">send</mat-icon>
+        Send invitation</button>
+        <button mat-raised-button color="primary" (click)="share(email)"><mat-icon matSuffix>share</mat-icon></button>
+    </div>
+   
+    </div>
+
+  <div *ngIf="users" style="display: flex; flex-wrap: wrap; justify-content: start;  align-content: flex-start" >
+    
+    <div class="mr-2 p-2" style="flex: 1 1 auto;" *ngFor="let card of cards" >
+      <app-card [card]="card" (newClick)="clickEvent($event)" class="" ></app-card>
+    </div>
+    <div class="mr-2 p-2" style="flex: 1 1 auto;" *ngFor="let card of pending" >
+      <app-card [card]="card" (newClick)="clickEvent($event)" class="" ></app-card>
+    </div>
+    
+  </div>
+
+  

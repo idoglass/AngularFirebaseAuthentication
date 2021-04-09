@@ -1,0 +1,15 @@
+.button:hover {
+    cursor: pointer;
+    background-color: #C5CBE9;
+    color: blueviolet;
+
+}
+.button{
+    background-color: #3F51B5;
+    color: #C6CBFF;
+}
+.icon{
+    font-size: xxx-large !important;
+    height: min-content;
+    width: min-content;
+}

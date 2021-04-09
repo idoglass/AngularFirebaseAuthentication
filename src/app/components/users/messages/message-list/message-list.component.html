@@ -1,0 +1,69 @@
+<app-page-header [header]="header"></app-page-header>
+
+<div class="d-flex w-100">
+    <div style="padding: 10px;">
+
+      <mat-button-toggle-group name="fontStyle" aria-label="Font Style" vertical>
+        <mat-button-toggle value="inbox" (click)="setInbox('inbox')" checked ><mat-icon>inbox</mat-icon>inbox</mat-button-toggle>
+        <mat-button-toggle value="sent" (click)="setInbox('sent')"><mat-icon>send</mat-icon>sent</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+    <div class="w-100">
+
+   
+    
+     <table mat-table
+       [dataSource]="this.showMessages" multiTemplateDataRows
+       class="mat-elevation-z8">
+  <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay" >
+    <th mat-header-cell *matHeaderCellDef class="test"> <h3>{{column}}</h3> </th>
+    <td  class="{{element.id === expandedElement?.id  ? 'test1' : 'test' }}" mat-cell *matCellDef="let element" [style]="color(element.new)" >
+      <ng-container [ngSwitch]="column" >
+        <div *ngSwitchCase="'date'">
+          {{element[column]?.toDate() | date:'short'}}
+        </div>
+        <div *ngSwitchCase="'action'">
+          <button mat-icon-button (click)="removeMessage(element).stopPropagation()" class="text-danger"><mat-icon>delete</mat-icon></button>&nbsp;
+          <button mat-icon-button (click)="markAsReadMessage(element);$event.stopPropagation()" class="example-icon"><mat-icon>{{ element.new? 'drafts' : 'mail'}}</mat-icon></button>
+        </div>
+        <div *ngSwitchCase="'sender'">
+          {{element.id === expandedElement?.id  ? 'from:  ' + element[column] : element[column] }}
+        </div>
+        <div *ngSwitchDefault>{{element.id === expandedElement?.id  ? '' : element[column]}}</div>
+      </ng-container>
+    </td>
+  </ng-container>
+
+
+  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+  <ng-container matColumnDef="expandedDetail">
+    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+      <div class="example-element-detail"
+           [@detailExpand]="element.id == expandedElement?.id ? 'expanded' : 'collapsed'">
+        <div >
+          <div >to:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{'   ' + element.reciver}} </div>
+          
+        </div>
+        <div class="mb-2 p-2">
+
+          <div class="header mb-2"> <strong >{{element.title}}</strong> </div>
+          <div > {{element.body}} </div>
+          <button mat-raised-button  color="primary" routerLink="{{element.url}}">{{element.button}}</button>
+        </div>
+      </div>
+    </td>
+  </ng-container>
+  (click)="expandedElement = expandedElement === element ? null : element"
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
+      class="example-element-row test2"
+      [class.example-expanded-row]="expandedElement?.id === element.id"
+      (click)="expandedElement = expanded(element);$event.stopPropagation()">
+  </tr>
+  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+</table>
+</div>
+</div>
+
+
+

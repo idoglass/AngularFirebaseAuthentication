@@ -1,0 +1,29 @@
+<app-page-header [header]="header"></app-page-header>
+
+<form [formGroup]="editForm" (ngSubmit)="onSubmit()" novalidate>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Name</mat-label>
+    <input matInput type="text" formControlName="displayName">
+  </mat-form-field>
+  <mat-form-field class="hidden">
+    <mat-label>Email</mat-label>
+    <input matInput class="" type="email" formControlName="email">
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <mat-label>Birthday Date</mat-label>
+    <input matInput type="date" formControlName="birthday">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Profile Image</mat-label>
+    <input matInput type="text" class="hidden" #photoURL formControlName="photoURL">
+    <app-file-upload (uploadEvent)="this.editForm.value.photoURL = $event" [photoURL]="photoURL.value"></app-file-upload>
+
+  </mat-form-field>
+  
+  
+    <div class="mb-3">
+      <button type="submit" class="btn btn-primary">Update</button>
+    </div>
+  </form>

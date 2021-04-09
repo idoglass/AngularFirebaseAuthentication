@@ -1,0 +1,16 @@
+.example-full-width {
+    width: 100%;
+  }
+
+ 
+  
+  #file{
+    width: 0px;
+        height: 0px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1; }
+img {
+    max-height: 100px;
+}

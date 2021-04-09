@@ -1,0 +1,28 @@
+<app-page-header [header]="header"></app-page-header>
+<form [formGroup]="editForm" class="example-form" (ngSubmit)="onSubmit()" novalidate>
+  <mat-form-field class="example-full-width">
+    <mat-label>Name</mat-label>
+    <input matInput type="text" formControlName="name" class="form-control" placeholder="Group name" required>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Manager</mat-label>
+    <input matInput  type="text" formControlName="manager" class="form-control" placeholder="Group name" required>
+  </mat-form-field>
+
+  <div class="mb-3" *ngIf="groupRef">
+    <label>color</label>
+    <input #color type="hidden" formControlName="color" class="form-control" required>
+    <app-color-chooser [palet]="groupRef?.color" (event)="save($event)"></app-color-chooser>
+  </div>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Group discription</mat-label>
+    <textarea matInput type="text" formControlName="discription" class="form-control" placeholder="Group name" required></textarea>
+  </mat-form-field>
+
+
+  <div class="mb-3">
+    <button type="submit" class="btn btn-primary" >Create</button>
+  </div>
+</form>

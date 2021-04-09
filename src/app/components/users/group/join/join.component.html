@@ -1,0 +1,38 @@
+<div class="w-100 h-100 d-flex align-items-center justify-content-center displayTable">
+    <mat-card>
+            <mat-card-title>
+                hello, {{ decoded?.reciver }}
+                {{userIsReciver}}
+            </mat-card-title>
+
+        <mat-card-content>
+            <div *ngIf="auth.isLoggedIn">
+                <div *ngIf="userIsReciver">
+                    <h1></h1>
+                    <p>
+                        you was invited to <strong>{{ decoded.name }}</strong> by {{ decoded.sender }}
+                    </p>
+
+                </div>
+                <div *ngIf="!userIsReciver">
+                    <p>{{error}}</p>
+                </div>
+            
+            
+            </div>
+        </mat-card-content>
+        <mat-card-actions *ngIf="auth.isLoggedIn">
+            <p>
+                <button *ngIf="userIsReciver" mat-raised-button color="primary" (click)="join(decoded.id)">join</button>
+                <button *ngIf="userIsReciver" mat-raised-button color="warn" (click)="reject(decoded.id)">No, thanks</button>
+                <button *ngIf="userIsReciver" mat-raised-button color="basic" routerLink="'/'">Not now</button>
+            </p>
+
+        </mat-card-actions>
+        <div *ngIf="!auth.isLoggedIn">
+            sign up
+        </div>
+        </mat-card>
+</div>
+
+

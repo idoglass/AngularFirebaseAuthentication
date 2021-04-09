@@ -1,0 +1,9 @@
+<app-page-header [header]="header"></app-page-header>
+
+<div *ngIf="groups" style="display: flex; flex-wrap: wrap; justify-content: start;  align-content: flex-start" >
+  <div *ngFor="let card of cards" class="mr-2 p-2" style="flex: 1 1 auto;">
+    <app-card [card]="card" (newClick)="clickEvent($event)" class="p-2" ></app-card>
+  </div>
+  
+</div>
+

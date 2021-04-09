@@ -1,0 +1,27 @@
+<div class="d-flex mb-2 flex-column">
+    <div class="d-flex">
+        <div class="mr-4">
+            <img src="{{photoURL}}" alt="">
+        </div>
+        <div class="d-flex align-items-center">
+            <button mat-flat-button color="accent" (click)="userPhoto.click(); $event.preventDefault()">upload new image</button>
+            
+        </div>
+    </div>
+
+    <mat-progress-bar *ngIf="isUploading" mode="determinate" [value]="prc"></mat-progress-bar>
+</div>
+
+
+
+    <input type="file"
+    id="file"
+    #userPhoto
+    (change)="onFileSelected($event)"
+    name="image"
+    autocomplete="off"
+    accept="image/*" 
+    />
+    
+
+  

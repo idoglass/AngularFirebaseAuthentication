@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { NgAuthService } from "./ng-auth.service";
+import { NgAuthService } from './ng-auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +17,13 @@ export class AuthGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      if(this.ngAuthService.isLoggedIn !== true) {
-        this.router.navigate(['sign-in'])
+      const url: string = state.url;
+      if (this.ngAuthService.isLoggedIn !== true) {
+        this.router.navigate(['sign-in']);
       }
+    // Store the attempted URL for redirecting
+      this.ngAuthService.redirectUrl = url;
       return true;
   }
-  
+
 }
