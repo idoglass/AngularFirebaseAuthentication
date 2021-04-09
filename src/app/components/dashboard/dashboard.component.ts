@@ -31,7 +31,7 @@ export class DashboardComponent implements OnInit {
               private groupService: GroupService,
               public router: Router, ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user'));
     this.groupService.group$.subscribe(group => {
       this.selectedGroup = group;
