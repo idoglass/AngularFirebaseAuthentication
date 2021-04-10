@@ -60,5 +60,11 @@ export class EditUserComponent implements OnInit {
     this.auth.updateProfile(this.editForm.value)
     this.router.navigate(['/dashboard/profile']);
   }
+
+  updateURL(url){
+    console.log(url)
+    this.editForm.value.photoURL = url;
+
+  }
   
 }

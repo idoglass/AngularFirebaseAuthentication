@@ -28,13 +28,17 @@ import { User } from 'src/app/components/users/user.model';
       constructor(
         private storage: AngularFireStorage,
        ) {
-        this.user = JSON.parse(localStorage.getItem('user'));
+        this.user = JSON.parse(localStorage.getItem('user')) as User;
       }
       ngOnInit() {}
 
       onFileSelected(event) {
         this.isUploading = true;
-        var n = Date.now();
+        const lenght = this.photoURL.length;
+        let d = this.user.photoURL.split('_');
+        let  n = d[1]
+        console.log(n)
+        n === 'one' ? n = 'two_' : n = 'one_';
         const file = event.target.files[0];
         const filePath = `profileImages/${this.user.uid + '_' + n}`;
         const fileRef = this.storage.ref(filePath);

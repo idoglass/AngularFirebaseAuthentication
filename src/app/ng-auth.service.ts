@@ -149,7 +149,6 @@ export class NgAuthService {
 
     updateProfile(userData: User): void {
       const user = firebase.auth().currentUser;
-
       user.updateProfile({
         displayName: userData.displayName,
         photoURL: userData.photoURL
@@ -157,6 +156,9 @@ export class NgAuthService {
         // Update successful.
         console.log('Update successful.')
         this.SetUserData(user);
+        user.photoURL = userData.photoURL;
+        localStorage.setItem('user', JSON.stringify(user));
+        JSON.parse(localStorage.getItem('user'));
       }).catch(function(error) {
         // An error happened.
       });

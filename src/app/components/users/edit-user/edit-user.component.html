@@ -17,8 +17,8 @@
 
   <mat-form-field class="example-full-width">
     <mat-label>Profile Image</mat-label>
-    <input matInput type="text" class="hidden" #photoURL formControlName="photoURL">
-    <app-file-upload (uploadEvent)="this.editForm.value.photoURL = $event" [photoURL]="photoURL.value"></app-file-upload>
+    <input matInput type="text" class="" #photoURL formControlName="photoURL">
+    <app-file-upload (uploadEvent)="updateURL($event); photoURL.value = $event; " [photoURL]="photoURL.value"></app-file-upload>
 
   </mat-form-field>
   
