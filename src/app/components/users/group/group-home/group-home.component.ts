@@ -36,13 +36,11 @@ export class GroupHomeComponent implements OnInit {
           const group = JSON.parse(localStorage.getItem('group')) as Group;
           this.router.navigate(['/dashboard/group-home/' + group.id]);
           if (id) {
-          this.header = {title: 'Group ' + group.name, button: 'Profile', url: '/dashboard/group-profile/' + id};
-          this.groupService.changeNav(group)
+          this.header = {title: 'Group ' + group.name, button: 'Group Profile', url: '/dashboard/group-profile/' + id};
+          this.groupService.changeGroup(group)
           } else {
           id = group.id;
-          
           }
-          
       });
 
     this.user = JSON.parse(localStorage.getItem('user'));

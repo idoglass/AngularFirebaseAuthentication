@@ -22,15 +22,17 @@ group$ = this._groupSource.asObservable();
 
   constructor(private angularFirestore: AngularFirestore, private router: Router) {
     this.group = JSON.parse(localStorage.getItem('group'));
+    this._groupSource.next(this.group)
   }
 
   // service command
-changeNav(group: Group) {
+changeGroup(group: Group) {
   this._groupSource.next(group);
   this.redirectUrl ? this.router.navigate([this.redirectUrl]) :
   this.router.navigate(['dashboard/group-home/' + group.id]);
   this.redirectUrl = null;
 }
+
 
   getGroupDoc(id) {
     const ref =  this.angularFirestore
@@ -135,7 +137,7 @@ changeNav(group: Group) {
       setGroupCookie(group: Group): void{
         localStorage.setItem('group', JSON.stringify(group));
         JSON.parse(localStorage.getItem('group'));
-        this.changeNav(group);
+        this.changeGroup(group);
       }
 
       get getGroup(): Group {

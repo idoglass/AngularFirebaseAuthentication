@@ -1,3 +1,4 @@
+import { HostListener } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgAuthService } from 'src/app/ng-auth.service';
@@ -25,6 +26,15 @@ export class DashboardComponent implements OnInit {
   fillerNav = Array.from({length: 50}, (_, i) => `Nav Item ${i + 1}`);
   showText = true;
   navColor: any;
+  innerWidth
+  show: boolean
+
+  @HostListener('window:resize', ['$event'])
+onResize(event) {
+  this.innerWidth = window.innerWidth;
+  console.log(this.innerWidth)
+  this.show = this.innerWidth > 800 ?  false : true;
+}
 
   constructor(private messageService: MessageService,
               public ngAuthService: NgAuthService,
@@ -34,8 +44,9 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user'));
     this.groupService.group$.subscribe(group => {
-      this.selectedGroup = group;
-      this.selectedGroup.color ? this.navColor = {background: 'linear-gradient(90deg, ' + this.selectedGroup.color.secondary + ' 0%, #f5f5f5 40% )'  } :
+      this.selectedGroup = group as Group;
+      this.selectedGroup && this.selectedGroup.hasOwnProperty('color') ?
+      this.navColor = {background: 'linear-gradient(90deg, ' + this.selectedGroup.color.secondary + ' 0%, #f5f5f5 40% )'  } :
       this.navColor = {background: 'linear-gradient(90deg, #efefef 0%, #f5f5f5 40% )'  };
     });
 

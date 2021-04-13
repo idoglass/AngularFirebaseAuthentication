@@ -1,9 +1,9 @@
 <div class="example-container" >
   <mat-toolbar class="example-toolbar" [ngStyle]="navColor">
-    <button mat-icon-button (click)="snav.toggle()" class="example-icon" aria-label="Example icon-button with menu icon">
+    <button mat-icon-button (click)="snav.toggle()" class="example-icon" aria-label="Example icon-button with menu icon" [ngStyle]="{'display': show ? 'block' : 'none'}">
       <mat-icon>menu</mat-icon>
     </button>
-    <span>{{ selectedGroup?.name }}</span>
+    <a mat-button [ngStyle]="{'display': !show ? 'block' : 'none'}" [routerLink]="'/dashboard/group-home/' + selectedGroup?.id">{{ selectedGroup?.name }}</a>
     <span class="example-spacer"></span>
     <button mat-raised-button color="accent" [matMenuTriggerFor]="menu">{{selectedGroup?.name}} <mat-icon>arrow_drop_down</mat-icon></button>
       <mat-menu #menu="matMenu">
@@ -34,7 +34,7 @@
   </mat-toolbar>
 
   <mat-sidenav-container class="example-sidenav-container">
-    <mat-sidenav #snav mode="side" opened="true">
+    <mat-sidenav #snav mode="side" [opened]="!show">
      <mat-nav-list class="d-flex flex-column h-100">
       <button mat-menu-item routerLink="/dashboard"><mat-icon >home</mat-icon>{{showText? 'home' : ''}}</button>
       <button mat-menu-item routerLink="/dashboard/list-group"><mat-icon>group</mat-icon>{{showText? 'groups' : ''}}</button>
