@@ -5,6 +5,8 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { Router } from '@angular/router';
 import { User } from './components/users/user.model';
 import { UserService } from './components/users/user.service';
+import { MessageService } from './components/users/messages/message.service';
+import { Message } from './components/users/messages/message.model';
 
 
 @Injectable({
@@ -20,10 +22,14 @@ export class NgAuthService {
       public afAuth: AngularFireAuth,
       public router: Router,
       public ngZone: NgZone,
-      private userService: UserService
+      private userService: UserService,
+      private messageService: MessageService
+
     ) {
       this.afAuth.authState.subscribe(user => {
         if (user) {
+
+
           this.userState = user;
           localStorage.setItem('user', JSON.stringify(user));
           JSON.parse(localStorage.getItem('user'));
@@ -37,6 +43,7 @@ export class NgAuthService {
     SignIn(email, password) {
       return this.afAuth.signInWithEmailAndPassword(email, password)
         .then((result) => {
+          result.additionalUserInfo.isNewUser;
           this.SetUserData(result.user).then(e => {
             this.ngZone.run(() => {
               // this.router.navigate(['dashboard']);
@@ -64,7 +71,7 @@ export class NgAuthService {
             // An error happened.
           });
           this.SendVerificationMail();
-          this.SetUserData(result.user);
+          this.SetUserData(result);
         }).catch((error) => {
           window.alert(error.message);
         });
@@ -98,7 +105,7 @@ export class NgAuthService {
     AuthLogin(provider) {
       return this.afAuth.signInWithPopup(provider)
       .then((result) => {
-        this.SetUserData(result.user).then(e => {
+        this.SetUserData(result).then(e => {
           this.ngZone.run(() => {
             console.log('log in');
               // this.router.navigate(['dashboard']);
@@ -112,6 +119,8 @@ export class NgAuthService {
     }
 
     SetUserData(user) {
+      if (user.additionalUserInfo.isNewUser) {this.sendWelcome(user.user)};
+      user = user.user;
       const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
       const userState: User = {
         uid: user.uid,
@@ -162,6 +171,19 @@ export class NgAuthService {
       }).catch(function(error) {
         // An error happened.
       });
+    }
+
+    sendWelcome(user: User){
+      console.log('new user');
+      const msg: Message = {
+      sender: 'app team',
+      reciver: [user.email],
+      date: new Date(),
+      title: 'Welcome',
+      body: 'Hello ' + user.displayName + 'welcome to the app',
+      new: true
+      }
+      this.messageService.createMessage(msg);
     }
 
 }

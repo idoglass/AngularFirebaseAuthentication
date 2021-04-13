@@ -67,7 +67,6 @@ export class DashboardComponent implements OnInit {
     this.selectedGroup = group;
     this.navColor = {background: 'linear-gradient(90deg, ' + this.selectedGroup.color.secondary + ' 0%, #f5f5f5 40% )'  };
     this.groupService.setGroupCookie(group);
-    this.router.navigate(['/dashboard/group-home/' + group.id]);
   }
 
   fabAction(){console.log('fab click')}

@@ -16,7 +16,7 @@ export class ColorChooserComponent implements OnInit {
 
 @Output() event = new EventEmitter();
 
-colors = Colors;
+colors: Palet[] = [];
 panelOpenState = false;
 
 public show = false;
@@ -49,27 +49,80 @@ public defaultColors: string[] = [
 ];
 
   constructor() {
-    this.palet ? this.palet = this.palet : this.palet = new Palet();
+    Colors.forEach( color => {
+      this.colors.push(this.colorToPalet(color));
+    });
   }
 
   ngOnInit(): void {
-
+    this.palet ? this.palet = this.palet : this.palet = new Palet().randomPalet(Colors);
+    this.palet.name === 'custom' ? this.colors.push(this.palet) : console.log(true);
+    console.log(this.palet);
   }
 
-   public changeColor(): void {
+   public changeColor(colorName): void {
+     this.palet = colorName;
+     console.log(colorName);
     this.event.emit(this.palet);
   }
-}
+
+  colorToPalet(color: MatColor): Palet{
+    return new Palet(color.name,
+      color[200],
+      color.hex,
+      color[900]);
+
+    }
+  }
+
 
 export class Palet {
   name: string;
   bg: string;
   secondary: string;
   text: string;
+
+  constructor(name?, bg?, secondary?, text?)
+  {
+    this.name = name;
+    this.bg = bg;
+    this.secondary = secondary;
+    this.text = text;
+  }
+
+  randomPalet(colors: MatColor[]): Palet{
+    const i = Math.floor(Math.random() * colors.length);
+    const color = colors[i];
+    return new Palet(
+      color.name,
+      color[200],
+      color.hex,
+      color[900]) as Palet;
+    }
 }
 
-export const Colors = {
-    red: {
+export interface MatColor {
+  name: string;
+  50: string;
+  100: string;
+  200: string;
+  300: string;
+  400: string;
+  500: string;
+  600: string;
+  700: string;
+  800: string;
+  900: string;
+  hex: string;
+  a100: string;
+  a200: string;
+  a400: string;
+  a700: string;
+}
+
+export const Colors: MatColor[] = [
+     {
+      name: 'red',
       50: '#ffebee',
       100: '#ffcdd2',
       200: '#ef9a9a',
@@ -86,7 +139,8 @@ export const Colors = {
       a400: '#ff1744',
       a700: '#d50000'
     },
-    pink: {
+    {
+      name: 'pink',
       50: '#fce4ec',
       100: '#f8bbd0',
       200: '#f48fb1',
@@ -103,7 +157,8 @@ export const Colors = {
       a400: '#f50057',
       a700: '#c51162'
     },
-    purple: {
+    {
+      name: 'purple',
       50: '#f3e5f5',
       100: '#e1bee7',
       200: '#ce93d8',
@@ -120,7 +175,8 @@ export const Colors = {
       a400: '#d500f9',
       a700: '#aa00ff'
     },
-    deepPurple: {
+    {
+      name: 'deepPurple',
       50: '#ede7f6',
       100: '#d1c4e9',
       200: '#b39ddb',
@@ -137,7 +193,8 @@ export const Colors = {
       a400: '#651fff',
       a700: '#6200ea'
     },
-    indigo: {
+    {
+      name: 'indigo',
       50: '#e8eaf6',
       100: '#c5cae9',
       200: '#9fa8da',
@@ -154,7 +211,8 @@ export const Colors = {
       a400: '#3d5afe',
       a700: '#304ffe'
     },
-    blue: {
+    {
+      name: 'blue',
       50: '#e3f2fd',
       100: '#bbdefb',
       200: '#90caf9',
@@ -171,7 +229,8 @@ export const Colors = {
       a400: '#2979ff',
       a700: '#2962ff'
     },
-    lightBlue: {
+    {
+      name: 'lightBlue',
       50: '#e1f5fe',
       100: '#b3e5fc',
       200: '#81d4fa',
@@ -188,7 +247,8 @@ export const Colors = {
       a400: '#00b0ff',
       a700: '#0091ea'
     },
-    cyan: {
+     {
+      name: 'cyan',
       50: '#e0f7fa',
       100: '#b2ebf2',
       200: '#80deea',
@@ -205,7 +265,8 @@ export const Colors = {
       a400: '#00e5ff',
       a700: '#00b8d4'
     },
-    teal: {
+    {
+      name: 'teal',
       50: '#e0f2f1',
       100: '#b2dfdb',
       200: '#80cbc4',
@@ -222,7 +283,8 @@ export const Colors = {
       a400: '#1de9b6',
       a700: '#00bfa5'
     },
-    green: {
+    {
+      name: 'green',
       50: '#e8f5e9',
       100: '#c8e6c9',
       200: '#a5d6a7',
@@ -239,7 +301,8 @@ export const Colors = {
       a400: '#00e676',
       a700: '#00c853'
     },
-    lightGreen: {
+    {
+      name: 'lightGreen',
       50: '#f1f8e9',
       100: '#dcedc8',
       200: '#c5e1a5',
@@ -256,7 +319,8 @@ export const Colors = {
       a400: '#76ff03',
       a700: '#64dd17'
     },
-    lime: {
+    {
+      name: 'lime',
       50: '#f9fbe7',
       100: '#f0f4c3',
       200: '#e6ee9c',
@@ -273,7 +337,8 @@ export const Colors = {
       a400: '#c6ff00',
       a700: '#aeea00'
     },
-    yellow: {
+    {
+      name: 'yellow',
       50: '#fffde7',
       100: '#fff9c4',
       200: '#fff59d',
@@ -290,7 +355,8 @@ export const Colors = {
       a400: '#ffea00',
       a700: '#ffd600'
     },
-    amber: {
+    {
+      name: 'amber',
       50: '#fff8e1',
       100: '#ffecb3',
       200: '#ffe082',
@@ -307,7 +373,8 @@ export const Colors = {
       a400: '#ffc400',
       a700: '#ffab00'
     },
-    orange: {
+    {
+      name: 'orange',
       50: '#fff3e0',
       100: '#ffe0b2',
       200: '#ffcc80',
@@ -324,7 +391,8 @@ export const Colors = {
       a400: '#ff9100',
       a700: '#ff6d00'
     },
-    deepOrange: {
+    {
+      name: 'deepOrange',
       50: '#fbe9e7',
       100: '#ffccbc',
       200: '#ffab91',
@@ -341,7 +409,8 @@ export const Colors = {
       a400: '#ff3d00',
       a700: '#dd2c00'
     },
-    brown: {
+    {
+      name: 'brown',
       50: '#efebe9',
       100: '#d7ccc8',
       200: '#bcaaa4',
@@ -352,9 +421,14 @@ export const Colors = {
       700: '#5d4037',
       800: '#4e342e',
       900: '#3e2723',
-      hex: '#795548'
+      hex: '#795548',
+      a100: '#795548',
+      a200: '#795548',
+      a400: '#795548',
+      a700: '#ffffff'
     },
-    grey: {
+    {
+      name: 'grey',
       50: '#fafafa',
       100: '#f5f5f5',
       200: '#eeeeee',
@@ -365,9 +439,14 @@ export const Colors = {
       700: '#616161',
       800: '#424242',
       900: '#212121',
-      hex: '#9e9e9e'
+      hex: '#9e9e9e',
+      a100: '#9e9e9e',
+      a200: '#9e9e9e',
+      a400: '#9e9e9e',
+      a700: '#ffffff'
     },
-    blueGrey: {
+    {
+      name: 'blueGrey',
       50: '#eceff1',
       100: '#cfd8dc',
       200: '#b0bec5',
@@ -378,7 +457,11 @@ export const Colors = {
       700: '#455a64',
       800: '#37474f',
       900: '#263238',
-      hex: '#607d8b'
+      hex: '#607d8b',
+      a100: '#607d8b',
+      a200: '#607d8b',
+      a400: '#607d8b',
+      a700: '#ffffff'
     }
-  };
+];
 

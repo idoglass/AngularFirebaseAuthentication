@@ -71,14 +71,14 @@ this.groupService.getGroupDoc(id).subscribe(res => {
             id: e.payload.doc.id,
             ...e.payload.doc.data() as any
           };
-          let content
+          let content;
           content = element.status === 'pending' ? 'waiting for user to accept' : '';
-          content = element.status === 'rejected' ? 'user rejected invitiation' : '';
+          content = element.status === 'rejected' ? 'user rejected invitiation' : content = content;
           return {
             title: element.name,
             subTitle: element.email,
             icon: 'pending',
-            content: content,
+            content,
             menuButton: [
               {type: 'deletePending', name: 'remove', icon: 'delete', id: element.name},
               {type: 'reShare', name: 'send invitation', icon: 'share', id: element.email}],

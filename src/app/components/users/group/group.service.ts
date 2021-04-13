@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { User } from '../user.model';
 import { Group } from './group.model';
@@ -10,19 +11,26 @@ import { Group } from './group.model';
 
 export class GroupService {
 group: Group;
+redirectUrl: string;
+
 
 // Observable navItem source
 private _groupSource = new BehaviorSubject<Group>(new Group());
 // Observable navItem stream
 group$ = this._groupSource.asObservable();
-// service command
-changeNav(group: Group) {
-  this._groupSource.next(group);
-}
 
-  constructor(private angularFirestore: AngularFirestore) {
+
+  constructor(private angularFirestore: AngularFirestore, private router: Router) {
     this.group = JSON.parse(localStorage.getItem('group'));
   }
+
+  // service command
+changeNav(group: Group) {
+  this._groupSource.next(group);
+  this.redirectUrl ? this.router.navigate([this.redirectUrl]) :
+  this.router.navigate(['dashboard/group-home/' + group.id]);
+  this.redirectUrl = null;
+}
 
   getGroupDoc(id) {
     const ref =  this.angularFirestore

@@ -13,7 +13,8 @@ export class NoGroupGuard implements CanActivate {
 
   constructor(
     public ngAuthService: NgAuthService,
-    public router: Router
+    public router: Router,
+    public groupService: GroupService
   ){
 
    }
@@ -23,10 +24,14 @@ export class NoGroupGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       let group: Group;
       localStorage.getItem('group') ? group = JSON.parse(localStorage.getItem('group')) : localStorage.setItem('group', null);
+      const url: string = state.url;
 
       if (!group) {
         this.router.navigate(['dashboard/no-group']);
       }
+
+      // Store the attempted URL for redirecting
+      this.groupService.redirectUrl = url;
       return true;
   }
 
