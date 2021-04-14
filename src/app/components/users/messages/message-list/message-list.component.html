@@ -15,16 +15,19 @@
      <table mat-table
        [dataSource]="this.showMessages" multiTemplateDataRows
        class="mat-elevation-z8">
+      
+
   <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay" >
     <th mat-header-cell *matHeaderCellDef class="test"> <h3>{{column}}</h3> </th>
     <td  class="{{element.id === expandedElement?.id  ? 'test1' : 'test' }}" mat-cell *matCellDef="let element" [style]="color(element.new)" >
-      <ng-container [ngSwitch]="column" >
-        <div *ngSwitchCase="'date'">
+      <ng-container [ngSwitch]="column"  >
+        <div *ngSwitchCase="'date'" style="text-align: center;">
           {{element[column]?.toDate() | date:'short'}}
         </div>
-        <div *ngSwitchCase="'action'">
-          <button mat-icon-button (click)="removeMessage(element).stopPropagation()" class="text-danger"><mat-icon>delete</mat-icon></button>&nbsp;
-          <button mat-icon-button (click)="markAsReadMessage(element);$event.stopPropagation()" class="example-icon"><mat-icon>{{ element.new? 'drafts' : 'mail'}}</mat-icon></button>
+        <div *ngSwitchCase="'action'" style="text-align: center;">
+            <button mat-icon-button (click)="removeMessage(element).stopPropagation()" class="text-danger"><mat-icon>delete</mat-icon></button>&nbsp;
+            <button mat-icon-button (click)="markAsReadMessage(element);$event.stopPropagation()" class="example-icon"><mat-icon>{{ element.new? 'drafts' : 'mail'}}</mat-icon></button>
+
         </div>
         <div *ngSwitchCase="'sender'">
           {{element.id === expandedElement?.id  ? 'from:  ' + element[column] : element[column] }}

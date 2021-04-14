@@ -46,7 +46,7 @@ onResize(event) {
     this.groupService.group$.subscribe(group => {
       this.selectedGroup = group as Group;
       this.selectedGroup && this.selectedGroup.hasOwnProperty('color') ?
-      this.navColor = {background: 'linear-gradient(90deg, ' + this.selectedGroup.color.secondary + ' 0%, #f5f5f5 40% )'  } :
+      this.navColor = {background: 'linear-gradient(90deg, ' + this.selectedGroup.color.secondary + ' 0%, #f0f0f0 40% )'  } :
       this.navColor = {background: 'linear-gradient(90deg, #efefef 0%, #f5f5f5 40% )'  };
     });
 

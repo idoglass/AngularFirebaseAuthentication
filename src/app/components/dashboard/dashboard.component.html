@@ -3,7 +3,7 @@
     <button mat-icon-button (click)="snav.toggle()" class="example-icon" aria-label="Example icon-button with menu icon" [ngStyle]="{'display': show ? 'block' : 'none'}">
       <mat-icon>menu</mat-icon>
     </button>
-    <a mat-button [ngStyle]="{'display': !show ? 'block' : 'none'}" [routerLink]="'/dashboard/group-home/' + selectedGroup?.id">{{ selectedGroup?.name }}</a>
+    <button mat-button [ngStyle]="{'display': !show ? 'block' : 'none'}" [routerLink]="'/dashboard/group-home/' + selectedGroup?.id"><h1>{{ selectedGroup?.name }}</h1></button>
     <span class="example-spacer"></span>
     <button mat-raised-button color="accent" [matMenuTriggerFor]="menu">{{selectedGroup?.name}} <mat-icon>arrow_drop_down</mat-icon></button>
       <mat-menu #menu="matMenu">
